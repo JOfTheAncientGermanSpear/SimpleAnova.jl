@@ -2,13 +2,14 @@
 
 _Why_
 
-Could not find a Julia-only package to perform ANOVA.
+Could not find a pure Julia ANOVA implementation.
 
-Though [scipy.stats.f\_oneway][2] can be used with [PyCall][1] to  perform ANOVA in Julia, it requires having Python & Scipy installed.
+_Note: ANOVA can also be performed in Julia by interoping with Python's [scipy.stats.f\_oneway][2] through [PyCall][1]. However, this requires installing Python & Scipy._
+
 
 __Warning: Not Optimized__
 
-If you find bugs or have optimization suggestions, please feel free to let us know/contribute a fix!
+If you find bugs or have optimization suggestions, please feel free to let us know/contribute a fix.
 
 
 Below example is from an [ANOVA tutorial] [3]
@@ -36,6 +37,18 @@ Results Info
 ```
 
 
+##Required Packages
+
+* [DataFrames][4]
+* [Distributions][5]
+* [HypothesisTests][6]
+* [Lazy][7]
+
+
 [1]: https://github.com/stevengj/PyCall.jl
 [2]: http://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.f_oneway.html
 [3]: http://people.stat.sc.edu/hendrixl/stat205/Lecture%20Notes/ANOVA%20S12.pdf
+[4]: https://github.com/JuliaStats/DataFrames.jl
+[5]: https://github.com/JuliaStats/Distributions.jl
+[6]: https://github.com/JuliaStats/HypothesisTests.jl
+[7]: https://github.com/MikeInnes/Lazy.jl
