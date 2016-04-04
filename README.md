@@ -9,7 +9,10 @@ _Note: ANOVA can also be performed in Julia by interoping with Python's [scipy.s
 
 __Warning: Not Optimized__
 
-If you find bugs or have optimization suggestions, please feel free to let us know/contribute a fix.
+* This code is not a registered package
+  * Install command: 
+  * Pkg.clone("https://github.com/JOfTheAncientGermanSpear/SimpleAnova.jl.git")
+* If you find bugs or have optimization suggestions, please feel free to contribute a fix or let us know.
 
 
 Below example is from an [ANOVA tutorial] [3]
