@@ -15,6 +15,8 @@ If you find bugs or have optimization suggestions, please feel free to let us kn
 Below example is from an [ANOVA tutorial] [3]
 
 ```julia
+>> Pkg.clone("https://github.com/JOfTheAncientGermanSpear/SimpleAnova.jl.git")
+>> using SimpleAnova
 >> diet1 = [8, 16, 9]
 >> diet2 = [9, 16, 21, 11, 18]
 >> diet3 = [15, 10, 17, 6]
