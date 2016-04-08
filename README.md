@@ -23,7 +23,8 @@ Below example is from an [ANOVA tutorial] [3]
 >> diet1 = [8, 16, 9]
 >> diet2 = [9, 16, 21, 11, 18]
 >> diet3 = [15, 10, 17, 6]
->> ai = calcanova(diet1, diet2, diet3) 
+>> dg(a, l) = DataGroup(a, l)
+>> ai = calcanova(dg(diet1, :diet1), dg(diet2, :diet2), dg(diet3, :diet3)) 
 Groups Info
 3x3 DataFrames.DataFrame
 │ Row │ n │ mean │ stdError │

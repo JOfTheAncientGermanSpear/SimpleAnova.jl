@@ -4,6 +4,8 @@ using Distributions
 using HypothesisTests
 using Lazy
 
+Label = Union{AbstractString, Symbol}
+
 immutable DataGroup
   data::Vector
   sampleSize::Int64
@@ -12,9 +14,10 @@ immutable DataGroup
   sampleStde::Float64
   weightedMean::Float64
   sumSquares::Float64
+  label::Label
 end
 
-function DataGroup(data::Vector)
+function DataGroup(data::Vector, label)
   sampleSize::Int64 = length(data)
   sampleMean::Float64 = mean(data)
   sampleStd::Float64 = std(data)
@@ -22,7 +25,7 @@ function DataGroup(data::Vector)
   weightedMean::Float64 = sampleSize * sampleMean
   sumSquares::Float64 = sampleStd^2 * (sampleSize - 1)
 
-  DataGroup(data, sampleSize, sampleMean, sampleStd, sampleStde, weightedMean, sumSquares)
+  DataGroup(data, sampleSize, sampleMean, sampleStd, sampleStde, weightedMean, sumSquares, label)
 end
 
 
@@ -51,7 +54,8 @@ function AnovaInfo(datagroups::Vector{DataGroup},
                    fStat::Float64)
   pluck = pluckGen(datagroups)
 
-  groupsInfo = DataFrame(n=pluck(:sampleSize),
+  groupsInfo = DataFrame(label=pluck(:label),
+                         n=pluck(:sampleSize),
                          mean=pluck(:sampleMean),
                          stdError=pluck(:sampleStde))
 
@@ -103,5 +107,7 @@ function calcanova(datagroups::Vector{DataGroup})
             Fs)
 end
 
-
 calcanova(datagroups...) = @> [DataGroup(d) for d in datagroups] calcanova
+
+
+calcanova(datagroups::Array{Array{DataGroup}}) = calcanova(datagroups...)

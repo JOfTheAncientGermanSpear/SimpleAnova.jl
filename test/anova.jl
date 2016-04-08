@@ -31,9 +31,12 @@ sumOver = sumOverGen(pts)
 diet1 = [8, 16, 9]
 diet2 = [9, 16, 21, 11, 18]
 diet3 = [15, 10, 17, 6]
-anovaInfo = calcanova(diet1, diet2, diet3)
+anovaInfo = calcanova(DataGroup(diet1, :diet1),
+                      DataGroup(diet2, :diet2),
+                      DataGroup(diet3, :diet3))
 
-expectedGroupsInfo = DataFrame(n=[3, 5, 4],
+expectedGroupsInfo = DataFrame(label=[:diet1, :diet2, :diet3],
+                               n=[3, 5, 4],
                                mean=[11, 15, 12.],
                                stdError=[2.517, 2.214, 2.483])
 

@@ -6,7 +6,8 @@ harmonicmean{T <: Real}(ns::AbstractVector{T}) = length(ns)/sum(1./ns)
 
 #http://web.mst.edu/~psyworld/anovaexample.htm
 #http://web.mst.edu/~psyworld/tukeysexample.htm#1
-function tukey(df::Int64,
+function tukey(labels::AbstractVector{Label},
+               df::Int64,
                sumSqrs::Float64,
                means::AbstractVector{Float64},
                ns::AbstractVector{Int64})
@@ -17,19 +18,19 @@ function tukey(df::Int64,
   num_mns::Int64 = length(means)
   qs = Float64[]
   ps = Float64[]
-  lefts = Int64[]
-  rights = Int64[]
+  lefts = Label[]
+  rights = Label[]
   for ix in 1:(num_mns - 1)
     for ix2 in (ix+1):num_mns
-      ((right_ix, right_mean), (left_ix, left_mean)) = sort(
-        [(i, means[i]) for i in [ix, ix2]], by=im -> im[2])
+      ((right, right_mean), (left, left_mean)) = sort(
+        [(labels[i], means[i]) for i in [ix, ix2]], by=im -> im[2])
 
       q::Float64 = (left_mean - right_mean)/mean_error
       qs = [qs; q]
       ps = [ps; ccdf(TDist(df), q)]
 
-      lefts = [lefts; left_ix]
-      rights = [rights; right_ix]
+      lefts = [lefts; left]
+      rights = [rights; right]
     end
   end
 
@@ -38,6 +39,7 @@ end
 
 
 function tukey(ai::AnovaInfo)
+  labels::AbstractVector{Label} = ai.groupsInfo[:label]
   ns::AbstractVector{Int64} = ai.groupsInfo[:n]
   means::AbstractVector{Float64} = ai.groupsInfo[:mean]
 
@@ -45,5 +47,5 @@ function tukey(ai::AnovaInfo)
   df::Int64 = ai.resultsInfo[wg, :df][1]
   sumSqrs::Float64 = ai.resultsInfo[wg, :sumSquares][1]
 
-  tukey(df, sumSqrs, means, ns)
+  tukey(labels, df, sumSqrs, means, ns)
 end
