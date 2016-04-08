@@ -23,22 +23,28 @@ Below example is from an [ANOVA tutorial] [3]
 >> diet1 = [8, 16, 9]
 >> diet2 = [9, 16, 21, 11, 18]
 >> diet3 = [15, 10, 17, 6]
->> calcanova(diet1, diet2, diet3) 
+>> ai = calcanova(diet1, diet2, diet3) 
 Groups Info
 3x3 DataFrames.DataFrame
 │ Row │ n │ mean │ stdError │
-┝━━━━━┿━━━┿━━━━━━┿━━━━━━━━━━┥
+┝━━━━┿━━━┿━━━━━━┿━━━━━━━━━━┥
 │ 1   │ 3 │ 11.0 │ 2.51661  │
 │ 2   │ 5 │ 15.0 │ 2.21359  │
 │ 3   │ 4 │ 12.0 │ 2.48328  │
 Results Info
 3x5 DataFrames.DataFrame
 │ Row │ source   │ df │ sumSquares │ FStat    │ PValue   │
-┝━━━━━┿━━━━━━━━━━┿━━━━┿━━━━━━━━━━━━┿━━━━━━━━━━┿━━━━━━━━━━┥
+┝━━━━┿━━━━━━━━━━┿━━━━┿━━━━━━━━━━━━┿━━━━━━━━━━┿━━━━━━━━━━┥
 │ 1   │ "Groups" │ 9  │ 210.0      │ 0.771429 │ 0.490658 │
 │ 2   │ "Error"  │ 2  │ 36.0       │ NA       │ NA       │
 │ 3   │ "Total"  │ 11 │ 246.0      │ NA       │ NA
-
+>> tukey(ai)
+3x4 DataFrames.DataFrame
+│ Row │ left │ right │ q        │ pval      │
+┝━━━━┿━━━━━━┿━━━━━━━┿━━━━━━━━━━┿━━━━━━━━━━━┥
+│ 1   │ 2    │ 1     │ 1.62054  │ 0.0697841 │
+│ 2   │ 3    │ 1     │ 0.405134 │ 0.34742   │
+│ 3   │ 2    │ 3     │ 1.2154   │ 0.127566  │
 ```
 
 
