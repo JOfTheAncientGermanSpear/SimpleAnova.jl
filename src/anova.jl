@@ -56,7 +56,7 @@ function AnovaInfo(datagroups::Vector{DataGroup},
                          stdError=pluck(:sampleStde))
 
   pv::Float64 = ccdf(FDist(dfBetween, dfWithin), fStat)
-  resultsInfo = DataFrame(source=["Groups", "Error", "Total"],
+  resultsInfo = DataFrame(source=["Within Group", "Between Group", "Total"],
                           df=[dfWithin, dfBetween, dfTotal],
                           sumSquares=[ssWithin, ssBetween, ssTotal],
                           FStat=@data([fStat, NA, NA]),

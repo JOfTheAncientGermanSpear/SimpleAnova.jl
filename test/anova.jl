@@ -47,7 +47,7 @@ for n in names(expectedGroupsInfo)
   end
 end
 
-expectedResultsInfo = DataFrame(source=["Groups", "Error", "Total"],
+expectedResultsInfo = DataFrame(source=["Within Group", "Between Group", "Total"],
                                 df=[9, 2, 11],
                                 sumSquares = [210., 36., 246.],
                                 FStat = @data([.771429, NA, NA]),
