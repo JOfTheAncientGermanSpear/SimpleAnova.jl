@@ -4,7 +4,7 @@ using Distributions
 using HypothesisTests
 using Lazy
 
-immutable DataGroup{T <: Union{AbstractString, Symbol}}
+immutable DataGroup
   data::Vector
   sampleSize::Int64
   sampleMean::Float64
@@ -12,10 +12,10 @@ immutable DataGroup{T <: Union{AbstractString, Symbol}}
   sampleStde::Float64
   weightedMean::Float64
   sumSquares::Float64
-  label::T
+  label::Union{Symbol, AbstractString}
 end
 
-function DataGroup{T <: Union{AbstractString, Symbol}}(data::Vector, label::T)
+function DataGroup(data::Vector, label::Union{AbstractString, Symbol})
   sampleSize::Int64 = length(data)
   sampleMean::Float64 = mean(data)
   sampleStd::Float64 = std(data)

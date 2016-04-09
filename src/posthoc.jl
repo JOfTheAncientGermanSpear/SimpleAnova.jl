@@ -6,7 +6,7 @@ harmonicmean{T <: Real}(ns::AbstractVector{T}) = length(ns)/sum(1./ns)
 
 #http://web.mst.edu/~psyworld/anovaexample.htm
 #http://web.mst.edu/~psyworld/tukeysexample.htm#1
-function tukey(labels::AbstractVector{Label},
+function tukey{T}(labels::AbstractVector{T},
                df::Int64,
                sumSqrs::Float64,
                means::AbstractVector{Float64},
@@ -18,8 +18,8 @@ function tukey(labels::AbstractVector{Label},
   num_mns::Int64 = length(means)
   qs = Float64[]
   ps = Float64[]
-  lefts = Label[]
-  rights = Label[]
+  lefts = T[]
+  rights = T[]
   for ix in 1:(num_mns - 1)
     for ix2 in (ix+1):num_mns
       ((right, right_mean), (left, left_mean)) = sort(
@@ -39,7 +39,7 @@ end
 
 
 function tukey(ai::AnovaInfo)
-  labels::AbstractVector{Label} = ai.groupsInfo[:label]
+  labels::AbstractVector = ai.groupsInfo[:label]
   ns::AbstractVector{Int64} = ai.groupsInfo[:n]
   means::AbstractVector{Float64} = ai.groupsInfo[:mean]
 
