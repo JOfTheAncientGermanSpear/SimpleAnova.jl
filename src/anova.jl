@@ -4,9 +4,7 @@ using Distributions
 using HypothesisTests
 using Lazy
 
-typealias Label Union{AbstractString, Symbol}
-
-immutable DataGroup
+immutable DataGroup{T <: Union{AbstractString, Symbol}}
   data::Vector
   sampleSize::Int64
   sampleMean::Float64
@@ -14,10 +12,10 @@ immutable DataGroup
   sampleStde::Float64
   weightedMean::Float64
   sumSquares::Float64
-  label::Label
+  label::T
 end
 
-function DataGroup(data::Vector, label)
+function DataGroup{T <: Union{AbstractString, Symbol}}(data::Vector, label::T)
   sampleSize::Int64 = length(data)
   sampleMean::Float64 = mean(data)
   sampleStd::Float64 = std(data)
@@ -77,7 +75,7 @@ Base.show(io::IO, ai::AnovaInfo) = begin
   print(io, ai.resultsInfo)
 end
 
-function calcanova(datagroups::Vector{DataGroup})
+function calcanova(datagroups::AbstractVector{DataGroup})
   map = mapGen(datagroups)
   pluck = pluckGen(datagroups)
   sumOver = sumOverGen(datagroups)
@@ -107,7 +105,4 @@ function calcanova(datagroups::Vector{DataGroup})
             Fs)
 end
 
-calcanova(datagroups...) = @> [DataGroup(d) for d in datagroups] calcanova
-
-
-calcanova(datagroups::Array{Array{DataGroup}}) = calcanova(datagroups...)
+calcanova(datagroups...) = calcanova(DataGroup[d for d in datagroups])
