@@ -4,7 +4,7 @@ using Distributions
 using HypothesisTests
 using Lazy
 
-Label = Union{AbstractString, Symbol}
+typealias Label Union{AbstractString, Symbol}
 
 immutable DataGroup
   data::Vector
